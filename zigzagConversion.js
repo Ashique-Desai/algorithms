@@ -1,9 +1,50 @@
+solution: //leetcode.com/problems/zigzag-conversion/?envType=study-plan-v2&envId=top-interview-150
+// the below solution passes all test cases
 /**
  * @param {string} s
  * @param {number} numRows
  * @return {string}
  */
+https: var convert = function (s, numRows) {
+    if (numRows === 1 || numRows >= s.length) {
+        return s;
+    }
 
+    let idx = 0,
+        d = 1;
+    const rows = new Array(numRows).fill().map(() => []);
+
+    for (const char of s) {
+        rows[idx].push(char);
+        console.log({ idx, d, char });
+        if (idx === 0) {
+            d = 1;
+        } else if (idx === numRows - 1) {
+            d = -1;
+        }
+        idx += d;
+    }
+    console.log({ rows });
+
+    for (let i = 0; i < numRows; i++) {
+        rows[i] = rows[i].join("");
+    }
+    console.log({ rows });
+    return rows.join("");
+};
+
+const s = "PAYPALISHIRING";
+const numRows = 3;
+
+convert(s, numRows);
+// expected output: PAHNAPLSIIGYIR
+[
+    ["P", "A", "H", "N"],
+    ["A", "P", "L", "S", "I", "I", "G"],
+    ["Y", "I", "R"],
+];
+
+// my solution passes 267 test cases
 var convert = function (s, numRows) {
     const numbersDiagonal = Math.floor(numRows / 2);
     let count = 0;
@@ -57,13 +98,22 @@ var convert = function (s, numRows) {
         }
     }
     console.log("final dp", { dp });
+    const joined = dp
+        .flat()
+        .filter((e) => e != "x")
+        .join("");
+    return joined;
 };
 
-const s = "PAYPALISHIRING";
-const numRows = 4;
+// const s = "PAYPALISHIRING";
+// const numRows = 4;
 
-convert(s, numRows);
-// output i am getting:
+// convert(s, numRows);
+// output i am getting for input: s = "ABCD":
+dp: [
+    ["A", "C", "D", "x"],
+    ["B", "x", "x", "x"],
+];
 
 // correct output, i solved it
 dp: [
