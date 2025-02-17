@@ -27,3 +27,26 @@ function findSmallestMissingNumber(A) {
 
     return missing;
 }
+
+
+
+// second approach
+function findSmallestMissingNumber(A) {
+    const nums = new Set();
+    const arrayLen = A.length;
+
+    for (let i = 0; i < arrayLen; i++) {
+        if (A[i] > 0) {
+            nums.add(A[i]);
+        }
+    }
+
+    for (let i = 1; i <= arrayLen + 1; i++) {
+        if (!nums.has(i)) {
+            return i;
+        }
+    }
+
+    return arrayLen + 1;
+}
+
